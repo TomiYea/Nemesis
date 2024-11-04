@@ -114,15 +114,21 @@ namespace Nemesis
                 Console.Clear();
                 Console.WriteLine("Tokens in bag: " + Intruder_Bag.Count);
                 Console.WriteLine("1 for Encounter.\n2 for Intruder Bag Development.\n3 to add a token in the bag.\n4 to remove a token from the bag." +
-                    "\nr to Explore / Search a Room.\ns to Search (no counters affected).\ne to draw Event.\nwe to discover Weakness.\na to receive Attack." +
-                    "\nsw to get a Serious Wound.\ncure to cure a Serious Wound.\no to show Objectives.\nc to draw Contamination.\nscan to scan Contamination." +
+                    "\nr to Explore / Search a Room.\nse to Search (no counters affected).\ne to draw Event.\nwe to discover Weakness.\na to receive Attack." +
+                    "\nsw to get a Serious Wound.\ncu to cure a Serious Wound.\no to show Objectives.\nc to draw Contamination.\nsc to scan Contamination." +
                     "\ncc to check Coordinates.\nce to check an Engine.\n0 to exit.");
                 string command = Console.ReadLine();
                 if (command == "1")
                 { //Encounter
                     token = Take_Intruder_Token();
                     Console.WriteLine(token);
-                    if (token[0] == 'N') { Intruder_Bag.Add(token); if (Intruder_Bag.Count == 1) { Put_Intruder_in_Bag('A'); } }
+                    if (token[0] == 'N') 
+                    { 
+                        Console.WriteLine("Place a Noise marker in each Corridor connected to the Room in which this Encounter took place. " +
+                            "If the Blank token was the last token in the Intruder bag: Add 1 Adult Intruder token to the Intruder bag. " +
+                            "If there are no Adult Intruder tokens available, nothing happens. Return the Blank token to the Intruder bag. This Encounter ends.");
+                        Intruder_Bag.Add(token); if (Intruder_Bag.Count == 1) { Put_Intruder_in_Bag('A'); } 
+                    }
                     Console.WriteLine("Tokens in bag: " + Intruder_Bag.Count);
                     Console.ReadLine();
                 }
@@ -130,10 +136,32 @@ namespace Nemesis
                 { //Bag Development
                     token = Take_Intruder_Token();
                     Console.WriteLine(token);
-                    if (token[0] == 'N') { Intruder_Bag.Add(token); if (!Put_Intruder_in_Bag('A')) { Console.WriteLine("No token to add."); } }
-                    else if (token[0] == 'L') { if (!Put_Intruder_in_Bag('A')) { Intruder_Bag.Add(token); Console.WriteLine("No token to add."); } }
-                    else if (token[0] == 'C') { if (!Put_Intruder_in_Bag('B')) { Intruder_Bag.Add(token); Console.WriteLine("No token to add."); } }
-                    else { Intruder_Bag.Add(token); }
+                    if (token[0] == 'N') 
+                    {
+                        Console.WriteLine("Add 1 Adult Intruder token to the Intruder bag. If there are no Adult Intruder tokens available, nothing happens. Return the Blank token to the Intruder bag.");
+                        Intruder_Bag.Add(token); 
+                        if (!Put_Intruder_in_Bag('A')) { Console.WriteLine("No token to add."); } 
+                    }
+                    else if (token[0] == 'L') 
+                    {
+                        Console.WriteLine("Remove this token from the Intruder bag and add 1 Adult token to the Intruder bag.");
+                        if (!Put_Intruder_in_Bag('A')) { Intruder_Bag.Add(token); Console.WriteLine("No token to add."); } 
+                    }
+                    else if (token[0] == 'C') 
+                    {
+                        Console.WriteLine("Remove this token from the Intruder bag and add 1 Breeder token to the Intruder bag.");
+                        if (!Put_Intruder_in_Bag('B')) { Intruder_Bag.Add(token); Console.WriteLine("No token to add."); } 
+                    }
+                    else if (token[0] == 'Q')
+                    {
+                        Console.WriteLine("If there are any Characters in the Nest Room, place the Queen miniature in that Room and resolve an Encounter. " +
+                            "If there are no Characters in the Nest (or its location has not been discovered yet), add an additional Egg token on the Intruder board. Return the Queen Intruder token to the Intruder bag.");
+                    }
+                    else 
+                    {
+                        Console.WriteLine("All players roll for Noise in order. If a player’s Character is in Combat with an Intruder, this player does not perform a Noise roll. Return the Adult Intruder token to the Intruder bag.");
+                        Intruder_Bag.Add(token); 
+                    }
                     Console.WriteLine("Tokens in bag: " + Intruder_Bag.Count);
                     Console.ReadLine();
                 }
@@ -226,7 +254,7 @@ namespace Nemesis
                     else { Console.WriteLine("Invalid Command"); }
                     Console.ReadLine();
                 }
-                else if (command == "s")
+                else if (command == "se")
                 { //Search
                     string item = Decks.Search('W');
                     Console.WriteLine("Add " + item + " to your inventory.");
@@ -267,7 +295,7 @@ namespace Nemesis
                     Console.WriteLine(Decks.Draw_Wound());
                     Console.ReadLine();
                 }
-                else if (command == "cure")
+                else if (command == "cu")
                 { //Treat wound
                     Decks.Treat_Wound();
                     Console.ReadLine();
@@ -282,7 +310,7 @@ namespace Nemesis
                     Console.WriteLine( "Contamination card nº " + Decks.Draw_Contamination());
                     Console.ReadLine();
                 }
-                else if (command == "scan")
+                else if (command == "sc")
                 {
                     if (Decks.Scan_Contamination()) { Console.WriteLine("INFECTED"); }
                     else { Console.WriteLine("Safe"); }
