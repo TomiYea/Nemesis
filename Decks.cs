@@ -179,6 +179,7 @@ namespace Nemesis
                         else { Events_Discard.Add(card); }
                         break;
                     }
+<<<<<<< Updated upstream
                     else if (command == "n") { Events_Discard.Add(card); break; }
                     else { Console.WriteLine("Come kiss me on my hot mouth."); }
                 }
@@ -198,6 +199,36 @@ namespace Nemesis
                     }
                     else if (command == "k") { Console.WriteLine("Event kept at the top of the deck."); break; }
                     else { Console.WriteLine("You can't save them."); }
+=======
+                    else if (card.StartsWith("Malf"))
+                    {
+                        Events_Deck.Add(card);
+                        Shuffle(Events_Deck);
+                    }
+                    else if (card.StartsWith("Consuming"))
+                    {
+                        int room;
+                        Events_Discard.Add(card);
+                        Console.WriteLine("What rooms are on fire?");
+                        while (true)
+                        {
+                            Console.WriteLine("Select a room. (\"end\" to end)");
+                            command = Console.ReadLine();
+                            if (int.TryParse(command, out room))
+                            {
+                                if (room >= 0 && room < 21)
+                                {
+                                    Room.InPlay[room].Items = 0;
+                                }
+                                else { Console.WriteLine("I am in your room."); }
+                            }
+                            else if (command == "end") { break; }
+                            else { Console.WriteLine("I am in your room."); }
+                        }
+                    }
+                    else { Events_Discard.Add(card); }
+                    break;
+>>>>>>> Stashed changes
                 }
             }
             return card;
@@ -391,7 +422,7 @@ namespace Nemesis
             Coorporate_Objectives.Add("Extreme Field Biology {2+} (At least 2 Intruder Weaknesses must be discovered.)");
             Coorporate_Objectives.Add("Ab Ovo {2+} (Intruder Egg Weakness must be discovered.)");
             Coorporate_Objectives.Add("Necroscopy {2+} (Send the Signal AND Intruder Carcass Weakness must be discovered.)");
-            Coorporate_Objectives.Add("My Precious {2+} (Send the Signal AND finish the game in an Escape Pod or Hibernation with an Intruder Egg Object.)");
+            Coorporate_Objectives.Add("My Precious {2+} (Send the Signal AND finish the game in an Escape Pod (or Hibernation) with an Intruder Egg Object.)");
             Solo_Coop_Objectives.Add("Destination: Earth (The ship must reach Earth.)");
             Solo_Coop_Objectives.Add("Emergency Post-Mortem (Place the blue Character Corpse Object in the Surgery Room.)");
             Solo_Coop_Objectives.Add("First Contact Protocol (At least 2 Intruder Weaknesses must be discovered.)");
