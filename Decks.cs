@@ -176,10 +176,30 @@ namespace Nemesis
                             Events_Deck.Add(card);
                             Shuffle(Events_Deck);
                         }
+                        else if (card.StartsWith("Consuming"))
+                        {
+                            int room;
+                            Events_Discard.Add(card);
+                            Console.WriteLine("What rooms are on fire?");
+                            while (true)
+                            {
+                                Console.WriteLine("Select a room. (\"end\" to end)");
+                                command = Console.ReadLine();
+                                if (int.TryParse(command, out room))
+                                {
+                                    if (room >= 0 && room < 21)
+                                    {
+                                        Room.InPlay[room].Items = 0;
+                                    }
+                                    else { Console.WriteLine("I am in your room."); }
+                                }
+                                else if (command == "end") { break; }
+                                else { Console.WriteLine("I am in your room."); }
+                            }
+                        }
                         else { Events_Discard.Add(card); }
                         break;
                     }
-<<<<<<< Updated upstream
                     else if (command == "n") { Events_Discard.Add(card); break; }
                     else { Console.WriteLine("Come kiss me on my hot mouth."); }
                 }
@@ -199,36 +219,6 @@ namespace Nemesis
                     }
                     else if (command == "k") { Console.WriteLine("Event kept at the top of the deck."); break; }
                     else { Console.WriteLine("You can't save them."); }
-=======
-                    else if (card.StartsWith("Malf"))
-                    {
-                        Events_Deck.Add(card);
-                        Shuffle(Events_Deck);
-                    }
-                    else if (card.StartsWith("Consuming"))
-                    {
-                        int room;
-                        Events_Discard.Add(card);
-                        Console.WriteLine("What rooms are on fire?");
-                        while (true)
-                        {
-                            Console.WriteLine("Select a room. (\"end\" to end)");
-                            command = Console.ReadLine();
-                            if (int.TryParse(command, out room))
-                            {
-                                if (room >= 0 && room < 21)
-                                {
-                                    Room.InPlay[room].Items = 0;
-                                }
-                                else { Console.WriteLine("I am in your room."); }
-                            }
-                            else if (command == "end") { break; }
-                            else { Console.WriteLine("I am in your room."); }
-                        }
-                    }
-                    else { Events_Discard.Add(card); }
-                    break;
->>>>>>> Stashed changes
                 }
             }
             return card;
