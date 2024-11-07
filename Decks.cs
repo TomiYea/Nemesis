@@ -146,7 +146,7 @@ namespace Nemesis
             Shuffle(Events_Deck);
         }
 
-        static public string Draw_Event()
+        static public string Draw_Event(char c)
         {
             if (Events_Deck.Count == 0)
             {
@@ -154,31 +154,51 @@ namespace Nemesis
                 Events_Discard.Clear();
                 Shuffle(Events_Deck);
             }
+            string command;
             string card = Events_Deck[0];
-            Events_Deck.RemoveAt(0);
-            Console.WriteLine(card + "\nProceed with Event? (y/n)");
-            while (true)
+            if (c == 'e')
             {
-                string command = Console.ReadLine();
-                if (command == "y")
+                Events_Deck.RemoveAt(0);
+                Console.WriteLine(card + "\nProceed with Event? (y/n)");
+                while (true)
                 {
-                    if (card.Contains("REMOVE"))
+                    command = Console.ReadLine();
+                    if (command == "y")
                     {
-                        Events_Deck.AddRange(Events_Discard);
-                        Events_Discard.Clear();
-                        Shuffle(Events_Deck);
+                        if (card.Contains("REMOVE"))
+                        {
+                            Events_Deck.AddRange(Events_Discard);
+                            Events_Discard.Clear();
+                            Shuffle(Events_Deck);
+                        }
+                        else if (card.StartsWith("Malf"))
+                        {
+                            Events_Deck.Add(card);
+                            Shuffle(Events_Deck);
+                        }
+                        else { Events_Discard.Add(card); }
+                        break;
                     }
-                    else if (card.StartsWith("Malf"))
-                    {
-                        Events_Deck.Add(card);
-                        Shuffle(Events_Deck);
-                    }
-                    else { Events_Discard.Add(card); }
-                    break;
+                    else if (command == "n") { Events_Discard.Add(card); break; }
+                    else { Console.WriteLine("Come kiss me on my hot mouth."); }
                 }
-                else if (command == "n") { Events_Discard.Add(card); break; }
-                else { Console.WriteLine("Come kiss me on my hot mouth."); }
-                
+            }
+            else if (c == 'r')
+            {
+                Console.WriteLine(card + "\nKeep or Delay? (k/d)");
+                while (true)
+                {
+                    command = Console.ReadLine();
+                    if (command == "d")
+                    {
+                        Events_Deck.RemoveAt(0);
+                        Events_Deck.Add(card);
+                        Console.WriteLine("Event placed at the bottom of the deck.");
+                        break;
+                    }
+                    else if (command == "k") { Console.WriteLine("Event kept at the top of the deck."); break; }
+                    else { Console.WriteLine("You can't save them."); }
+                }
             }
             return card;
         }

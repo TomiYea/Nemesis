@@ -262,7 +262,7 @@ namespace Nemesis
                 }
                 else if (command == "e")
                 { //Event
-                    Decks.Draw_Event();
+                    Decks.Draw_Event('e');
                     Console.ReadLine();
                 }
                 else if (command == "we")
@@ -324,6 +324,11 @@ namespace Nemesis
                 else if (command == "ce")
                 {
                     Decks.Check_Engine();
+                    Console.ReadLine();
+                }
+                else if (command == "ra")
+                {
+                    Decks.Draw_Event('r');
                     Console.ReadLine();
                 }
                 else if (command == "0")
