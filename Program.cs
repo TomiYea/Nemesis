@@ -5,7 +5,7 @@ namespace Nemesis
     static class Program
     {
         static Random rng = new Random();
-        static bool valid = true;
+        static bool valid;
         static public int n_players;
 
         static public List<char[]> Intruder_Bag = new List<char[]>();
@@ -321,6 +321,7 @@ namespace Nemesis
             while (true)
             {
                 Console.Clear();
+                valid = true;
                 Console.WriteLine("Main Menu\n1 to play.\n0 to exit.");
                 string command = Console.ReadLine();
                 if (command == "1")
