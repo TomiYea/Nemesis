@@ -116,7 +116,7 @@ namespace Nemesis
                 Console.WriteLine("1 for Encounter.\n2 for Intruder Bag Development.\n3 to add a token in the bag.\n4 to remove a token from the bag." +
                     "\nr to Explore / Search a Room.\nse to Search (no counters affected).\ne to draw Event.\nwe to discover Weakness.\na to receive Attack." +
                     "\nsw to get a Serious Wound.\ncu to cure a Serious Wound.\no to show Objectives.\nc to draw Contamination.\nsc to scan Contamination." +
-                    "\ncc to check Coordinates.\nce to check an Engine.\n0 to exit.");
+                    "\ncc to check Coordinates.\nce to check an Engine.\nra to perform Risk Assessment.\n0 to exit.");
                 string command = Console.ReadLine();
                 if (command == "1")
                 { //Encounter
