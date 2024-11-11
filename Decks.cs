@@ -406,7 +406,7 @@ namespace Nemesis
             Personal_Objectives.Add("The Great Hunt {2+} (Send the Signal AND the ship must be destroyed. |OR| Send the Signal AND the Queen must be killed.)");
             Personal_Objectives.Add("Hoarder {2+} (Finish the game in an Escape Pod AND you must have at least 7 Items. Quest Items count only if they are active.)");
             Personal_Objectives.Add("Relentless Investigator {2+} (Send the Signal AND all Rooms on the ship must be explored.)");
-            Personal_Objectives.Add("A Proper Burial {2+} (Send the Signal AND finish the game in an Escape Pod or Hibernation with the blue Character Corpse Object.)");
+            Personal_Objectives.Add("A Proper Burial {2+} (Send the Signal AND finish the game in an Escape Pod (or Hibernation) with the blue Character Corpse Object.)");
             Coorporate_Objectives.Add("The Right Moment to Strike {2+} (Player 1’s Character cannot survive. |OR| Your Character is the only survivor.)");
             Coorporate_Objectives.Add("Greener Pastures {2+} (Player 2’s Character cannot survive. |OR| Your Character is the only survivor.)");
             Coorporate_Objectives.Add("Extreme Field Biology {2+} (At least 2 Intruder Weaknesses must be discovered.)");
@@ -466,6 +466,30 @@ namespace Nemesis
                         else { Console.WriteLine("I'm a registed sex offender."); }
                     }
                     else { Console.WriteLine("I'm a registed sex offender."); }
+                }
+            }
+        }
+
+        static public void Present_Objectives()
+        {
+            if (Program.n_players == 1) 
+            {
+                Console.Clear();
+                Console.WriteLine("Objectives:");
+                Console.WriteLine(Solo_Coop_Objectives[0]);
+                Console.WriteLine(Solo_Coop_Objectives[1]);
+                Console.ReadLine();
+            }
+            else
+            {
+                for (int i = 1; i <= Program.n_players; i++) 
+                {
+                    Console.Clear();
+                    Console.WriteLine("Player " + i + "'s Objectives:");
+                    Console.ReadLine();
+                    Console.WriteLine(Personal_Objectives[i]);
+                    Console.WriteLine(Coorporate_Objectives[i]);
+                    Console.ReadLine();
                 }
             }
         }

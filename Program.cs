@@ -95,6 +95,39 @@ namespace Nemesis
             return false;
         }
 
+        static public void Choose_Characters()
+        {
+            List<string> characters = new List<string>() { "Pilot", "Scout", "Captain", "Soldier", "Mechanic", "Scientist" };
+            string command;
+            for (int i = 1; i <= n_players; i++)
+            {
+                Console.Clear();
+                Decks.Shuffle(characters);
+                Console.WriteLine("Player " + i + ", choose your character.");
+                Console.WriteLine("1 for " + characters[0]);
+                Console.WriteLine("2 for " + characters[1]);
+                while (true)
+                {
+                    command = Console.ReadLine();
+                    if (command == "1")
+                    {
+                        characters.RemoveAt(0);
+                        break;
+                    }
+                    else if (command == "2")
+                    {
+                        characters.RemoveAt(1);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("It0s too late to think of something funny, I'm going to sleep.");
+                    }
+                }
+                
+            }
+        }
+
         static public void Gayming()
         {
             char[] token;
@@ -105,7 +138,6 @@ namespace Nemesis
             Decks.Create_Weakness();
             Decks.Create_Attacks_Deck();
             Decks.Create_Wounds_Deck();
-            Decks.Create_Objective_Decks();
             Decks.Create_Contaminations();
             Decks.Set_Coordinates();
             Decks.Set_Engines();
@@ -362,7 +394,13 @@ namespace Nemesis
                     Console.Write("Number of Players: ");
                     if (!int.TryParse(Console.ReadLine(), out n_players)) { Console.WriteLine("Invalid Command"); valid = false; }
                     if (n_players < 1 || n_players > 5) { Console.WriteLine("Invalid Number"); valid = false; }
-                    if (valid) { Gayming(); }
+                    if (valid) 
+                    {
+                        Decks.Create_Objective_Decks();
+                        Decks.Present_Objectives();
+                        Choose_Characters();
+                        Gayming();
+                    }
                 }
                 else if (command == "0") 
                 {
