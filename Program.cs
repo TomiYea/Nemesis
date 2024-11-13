@@ -121,7 +121,7 @@ namespace Nemesis
                     }
                     else
                     {
-                        Console.WriteLine("It0s too late to think of something funny, I'm going to sleep.");
+                        Console.WriteLine("It's too late to think of something funny, I'm going to sleep.");
                     }
                 }
                 

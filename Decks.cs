@@ -448,7 +448,7 @@ namespace Nemesis
             for (int i = 0; i < 9; i++) 
             {
                 if (coorporate.StartsWith(coorp[i])) { code += i; }
-                if (personal.StartsWith(personal[i])) { code += i * 10; }
+                if (personal.StartsWith(pers[i])) { code += i * 10; }
             }
             return code;
         }
