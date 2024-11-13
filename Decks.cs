@@ -440,6 +440,19 @@ namespace Nemesis
             Shuffle(Solo_Coop_Objectives);
         }
 
+        static public int Get_Objectives_Code(string personal, string coorporate)
+        {
+            int code = 11;
+            string[] pers = ["Sal", "Qua", "The G", "Hoa", "Rel", "A P", "The O", "Bes", "Ali"];
+            string[] coorp = ["The R", "Gre", "Ext", "Ab", "Nec", "My", "An", "Hos", "The F"];
+            for (int i = 0; i < 9; i++) 
+            {
+                if (coorporate.StartsWith(coorp[i])) { code += i; }
+                if (personal.StartsWith(personal[i])) { code += i * 10; }
+            }
+            return code;
+        }
+
         static public void Show_Objectives(bool solo)
         {
             int player;
@@ -461,6 +474,7 @@ namespace Nemesis
                         {
                             Console.WriteLine(Personal_Objectives[player]);
                             Console.WriteLine(Coorporate_Objectives[player]);
+                            Console.WriteLine("Code: " + Get_Objectives_Code(Personal_Objectives[player], Coorporate_Objectives[player]));
                             break;
                         }
                         else { Console.WriteLine("I'm a registed sex offender."); }
@@ -489,6 +503,7 @@ namespace Nemesis
                     Console.ReadLine();
                     Console.WriteLine(Personal_Objectives[i]);
                     Console.WriteLine(Coorporate_Objectives[i]);
+                    Console.WriteLine("Code: " + Get_Objectives_Code(Personal_Objectives[i], Coorporate_Objectives[i]));
                     Console.ReadLine();
                 }
             }
